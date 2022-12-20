@@ -1,2 +1,37 @@
 # SQL-study-guide
-Most common SQL commands as reference with examples 
+Most common SQL commands as reference with examples
+
+```SQL
+
+-- Creating a table + specifying data types
+CREATE TABLE student (
+student_id INT PRIMARY KEY,
+student_name VARCHAR(50),
+major VARCHAR(50)
+)
+
+--Equivalent to DESCRIBE => details of table data types, etc.
+EXEC sp_help student
+
+--Pulling data from a table
+SELECT *
+FROM student
+
+--Deleting a table
+DROP TABLE student
+
+--Altering a table (adding a field + specifying data type)
+ALTER TABLE student ADD gpa DECIMAL(3, 2)
+
+--Altering a table (deleting a column)
+ALTER TABLE student DROP COLUMN gpa
+
+--Inserting data into table
+INSERT INTO student VALUES (4, 'John', 'Philosophy')
+
+--Inserting data into table (specifying which data types we have out of total required to avoid errors)
+INSERT INTO student(student_id, student_name) VALUES(
+	3,
+	'Kate'
+)
+```
