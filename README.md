@@ -1,31 +1,35 @@
 # SQL-study-guide
 Most common SQL commands as reference with examples
 
-```SQL
+## Manipulating a table
 
+### Creating a table
+```SQL
 -- Creating a table + specifying data types
 CREATE TABLE student (
 student_id INT PRIMARY KEY,
 student_name VARCHAR(50),
 major VARCHAR(50)
 )
+```
 
---Equivalent to DESCRIBE => details of table data types, etc.
-EXEC sp_help student
-
---Pulling data from a table
-SELECT *
-FROM student
-
+### Deleting a table
+```SQL
 --Deleting a table
 DROP TABLE student
+```
 
+### Altering fields/columns in a table
+```SQL
 --Altering a table (adding a field + specifying data type)
 ALTER TABLE student ADD gpa DECIMAL(3, 2)
 
 --Altering a table (deleting a column)
 ALTER TABLE student DROP COLUMN gpa
+```
 
+### Inserting data into a table
+```SQL
 --Inserting data into table
 INSERT INTO student VALUES (4, 'John', 'Philosophy')
 
@@ -34,6 +38,28 @@ INSERT INTO student(student_id, student_name) VALUES(
 	3,
 	'Kate'
 )
+```
+
+### Getting details about table
+
+```SQL 
+--Equivalent to DESCRIBE => details of table data types, etc.
+EXEC sp_help student
+```
+
+## Basic Querying
+```SQL
+--Pulling all data from a table
+SELECT *
+FROM student
+
+--Conditioning pull requests +
+SELECT name, major
+FROM student
+WHERE student_id <= 3 AND firstname <> 'Jack'
+
+-- Operators 
+-- +, -, <=, >=, =, <>, AND, OR
 ```
 
 ## Constraints (MS SQL Server)
@@ -61,3 +87,24 @@ CREATE TABLE student (
 ```
 
 ![image](https://user-images.githubusercontent.com/94760028/208919331-f24ff63b-dc1a-48c2-98df-55fd00584c4f.png)
+
+## Updating & Deleting
+
+```SQL
+-- Will delete all rows from table
+DELETE FROM student
+
+-- Specifying row and/or conditions to delete
+DELETE FROM student
+WHERE student_id = 5
+
+-- Two examples of syntax to update a table
+-- WHERE used to set conditions
+ UPDATE student
+ SET major = 'Astro-Physics'
+ WHERE major = 'Astrology' OR major = 'Physics'
+
+ UPDATE student
+ SET major = 'Physics'
+ WHERE firstname = 'Adam'
+```
