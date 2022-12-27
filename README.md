@@ -253,6 +253,7 @@ FROM branch_supplier
 
 ### Playing with company data..
 
+```SQL
 --Select all employees from employee table in descending order by salary
 Select *
 FROM employee
