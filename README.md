@@ -1,4 +1,4 @@
-# SQL-study-guide
+# SQL-cheat-sheet
 Most common SQL commands as reference with examples
 
 ## Manipulating a table
