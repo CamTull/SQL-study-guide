@@ -336,5 +336,95 @@ WHERE birth_day LIKE '____-10%'
 
 ### Unions
 
+Unions combine the results of multiple SELECT statements.
+
+#### Rules
+
+* Must have same # of columns in each SELECT statement
+* Similar datatype (ex. string & string rather than string & int)
+
 ```SQL
+SELECT first_name
+FROM employee
+UNION
+SELECT branch_name
+FROM branch
 ```
+
+![Screenshot 2022-12-29 202432](https://user-images.githubusercontent.com/94760028/210025616-3a2c9346-9a82-4df1-b4e0-648d97a252bb.png)
+
+```SQL
+SELECT client_name, branch_id
+FROM client
+UNION
+SELECT supplier_name, branch_id
+FROM branch_supplier
+```
+
+![Screenshot 2022-12-29 203240](https://user-images.githubusercontent.com/94760028/210025912-f090a17b-586c-46db-abf7-2dbc7656193d.jpg)
+
+### Joins
+
+Joins combine rows from multiple tables based on a related column between them.
+
+**Default/Inner JOIN:**
+
+```SQL
+-- Find all branches and the names of their managers
+SELECT employee.emp_id, employee.first_name, branch.branch_name
+FROM employee 
+JOIN branch
+ON employee.emp_id = branch.mgr_id;
+```
+
+![Screenshot 2022-12-29 205107](https://user-images.githubusercontent.com/94760028/210026645-ce7252dd-d176-43cf-9ef0-59aa5b941d69.jpg)
+
+*The above shows the combination of three columns from two seperate tables (employee & branch) using the default **"inner-join"** method when equating the emp_id from employee table to the mgr_id from the branch table.
+
+**LEFT JOIN**
+
+```SQL
+SELECT employee.emp_id, employee.first_name, branch.branch_name
+FROM employee 
+LEFT JOIN branch
+ON employee.emp_id = branch.mgr_id;
+```
+
+![Screenshot 2022-12-29 205730](https://user-images.githubusercontent.com/94760028/210026942-405a4162-2a91-462a-84be-deed79834783.jpg)
+
+* Left Join includes all the rows from the left table (i.e. specified in FROM statement - employee in this example)
+
+**RIGHT JOIN**
+
+```SQL
+SELECT employee.emp_id, employee.first_name, branch.branch_name
+FROM employee 
+RIGHT JOIN branch
+ON employee.emp_id = branch.mgr_id;
+```
+
+![Screenshot 2022-12-29 210143](https://user-images.githubusercontent.com/94760028/210027203-ce411db2-60c5-41a4-a3ad-ac5f23429f37.jpg)
+
+* Will include all branch table information because branch is the 'right-side' table being joined
+
+**FULL OUTER JOIN**
+
+```SQL
+SELECT employee.emp_id, employee.first_name, branch.branch_name
+FROM employee 
+FULL OUTER JOIN branch
+ON employee.emp_id = branch.mgr_id;
+```
+
+![Screenshot 2022-12-29 210556](https://user-images.githubusercontent.com/94760028/210027379-3ad12e72-b2de-4955-ae47-b09b79caac26.jpg)
+
+* Will show all rows of both left and right side tables (employee - left & branch - right)
+
+### Nested Queries
+
+
+
+
+
+
+
