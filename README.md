@@ -448,6 +448,73 @@ WHERE client.branch_id = (
 
 * Using = to nest query
 
+### ON DELETE SET NULL
+
+* Basically sets value to NULL when field information is deleted from referenced key
+
+```SQL
+ALTER TABLE employee
+ADD FOREIGN KEY(branch_id)
+REFERENCES branch(branch_id)
+ON DELETE SET NULL;
+```
+
+### ON DELETE CASCADE
+
+* If foreign key information is deleted, it will delete entire row from database.
+* If a foreign key is also a primary key (or component of a primary key), it cannot be set to ON DELETE SET NULL because primary keys cannot be set to NULL values - it must be CASCADE.
+
+```SQL
+ALTER TABLE employee
+ADD FOREIGN KEY(branch_id)
+REFERENCES branch(branch_id)
+ON DELETE CASCADE;
+```
+### TRIGGERS
+
+* Triggers are blocks of sql code that execute a function (automatically) when certain events take place.
+* Great way to automate function in SQL
+* Use of command line needed to alter delimiter
+
+```SQL
+CREATE TABLE trigger_test (
+	message VARCHAR(100));
+
+--Delimiter needs to change to allow semi-colon to be used within trigger statement
+--Changing delimiter needs to happen in command line
+DELIMITER $$
+
+--translation => for each new employee entered into database, insert string 'added new employee' into trigger_test table.
+CREATE
+	TRIGGER my_trigger BEFORE INSERT
+	ON employee
+	FOR EACH ROW BEGIN
+		INSERT INTO trigger_test VALUES('added new employee');
+	END$$
+
+--Setting delimiter back to semi-colon
+DELIMITER ;
+```
+
+**More Complex Trigger Statement
+
+```SQL
+DELIMITER $$
+
+--Using conditional statement to specify gender of employee added to table
+CREATE
+	TRIGGER my_trigger BEFORE INSERT
+	ON employee
+	FOR EACH ROW BEGIN
+		IF NEW.sex = 'M' THEN
+			INSERT INTO trigger_test VALUES('added male employee');
+		ELSEIF NEW.sex = 'F' THEN
+			INSERT INTO trigger_test VALUES('added female');
+		ELSE INSERT INTO trigger_test VALUES('added other employee');
+		END IF;
+	END$$
+DELIMITER ;
+```
 
 
 
